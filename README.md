@@ -7,7 +7,7 @@ In the past I tried to use https://github.com/espressif/arduino-esp32/blob/maste
 
 ## Features
 - authentication (basic, motion does not support digest auth for mjpeg cams)
-- framerate / fps / jpeg quality / port / resolution / url & more configuration
+- framerate / jpeg quality / port / resolution / url & more configuration
 - removed useless code such as static image capture
 
 ## Usage
