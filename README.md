@@ -31,7 +31,7 @@ rotate 180
 width 800
 height 600
 framerate 10
-netcam_url mjpeg://192.168.88.111:80/cam.mjpeg
+netcam_url mjpeg://192.168.88.111:80/stream
 netcam_userpass esp32:pass32
 netcam_keepalive off
 netcam_tolerant_check off
