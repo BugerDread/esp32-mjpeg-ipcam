@@ -15,7 +15,7 @@ In the past I tried to use https://github.com/espressif/arduino-esp32/blob/maste
 - set board type to "AI Thinker ESP32-CAM" in Arduino IDE -> Tools -> Board
 - open esp32-mjpeg-ip-camera.ino, change WiFi SSID and password to your own, compile & upload
 - open Serial monitor and restart the ESP, wait until WiFi connected
-- open http://<ip_of_you_esp>/cam.mjpeg in web browser on computer connected to the same WiFi (you can get the IP from Arduino's Serial monitor)
+- open http://<ip_of_you_esp>/stream in web browser on computer connected to the same WiFi (you can get the IP from Arduino's Serial monitor)
 - enter esp32 / pass32 as your username / password, you should get picture from your camera
 - you can modify stream username / password / url / port / resolution / etc in the sketch
 

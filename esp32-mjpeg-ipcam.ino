@@ -22,11 +22,11 @@ WebServer server(80);
 
 void handleMjpeg()
 {
-  if(!server.authenticate(streamUsername, streamPassword)) {
+  if (!server.authenticate(streamUsername, streamPassword)) {
     Serial.println(F("STREAM auth required, sending request"));
     return server.requestAuthentication(BASIC_AUTH, streamRealm, authFailResponse);
-  }   
-  
+  }
+
   if (!esp32cam::Camera.changeResolution(hiRes)) {
     Serial.println(F("SET RESOLUTION FAILED"));
   }
@@ -67,25 +67,27 @@ void setup()
   Serial.println(String(F("JPEG quality: ")) + jpgqal);
   Serial.println(String(F("Framerate: ")) + fps);
 
-  Serial.print(F("Connecting to WiFi"));
   WiFi.persistent(false);
   WiFi.mode(WIFI_STA);
-  WiFi.begin(WIFI_SSID, WIFI_PASS);
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print(F("."));
-    delay(500);
-  }
-
-  Serial.print(F("\nCONNECTED!\nhttp://"));
-  Serial.print(WiFi.localIP());
-  Serial.println(streamPath);
 
   server.on(streamPath, handleMjpeg);
-
   server.begin();
 }
 
 void loop()
 {
-  server.handleClient();
+  if (WiFi.status() ==  WL_CONNECTED) {
+    server.handleClient();
+  } else {
+    Serial.print(F("Connecting to WiFi"));
+    WiFi.begin(WIFI_SSID, WIFI_PASS);
+    while (WiFi.status() != WL_CONNECTED)
+    {
+      Serial.printf(".");
+      delay(1000);
+    }
+    Serial.print(F("\nCONNECTED!\nhttp://"));
+    Serial.print(WiFi.localIP());
+    Serial.println(streamPath);
+  }
 }
