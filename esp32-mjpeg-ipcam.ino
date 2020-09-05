@@ -81,13 +81,19 @@ void loop()
   } else {
     Serial.print(F("Connecting to WiFi"));
     WiFi.begin(WIFI_SSID, WIFI_PASS);
-    while (WiFi.status() != WL_CONNECTED)
+    int waitCount = 0;
+    while (WiFi.status() != WL_CONNECTED && waitCount < 60)
     {
-      Serial.printf(".");
       delay(1000);
+      Serial.printf(".");
+      waitCount++;
     }
-    Serial.print(F("\nCONNECTED!\nhttp://"));
-    Serial.print(WiFi.localIP());
-    Serial.println(streamPath);
+    if (WiFi.status() ==  WL_CONNECTED) {
+      Serial.print(F("\nCONNECTED!\nhttp://"));
+      Serial.print(WiFi.localIP());
+      Serial.println(streamPath);
+    } else {
+      Serial.print(F("\nFailed to connect! Retrying.\n"));
+    }
   }
 }
